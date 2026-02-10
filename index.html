@@ -2,13 +2,87 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Название вашего проекта</title>
+    <title>HelpDesk FAQ</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Добро пожаловать в [Название проекта]!</h1>
-    <p>Это стартовая страница моего веб-приложения.</p>
-    <script src="js/script.js"></script>
+
+<main class="container">
+    <section>
+        <h1 class="faq-header">HelpDesk</h1>
+
+        <div class="faq-list">
+
+            <details open>
+                <summary>
+                    <span class="summary-text">
+                        The expense windows adapted sir. Wrong widen drawn.
+                    </span>
+                    <span class="summary-icon">−</span>
+                </summary>
+                <p>
+                    Offending belonging promotion provision an be oh consulted ourselves it.
+                    Blessing welcomed ladyship she met humoured sir breeding her.
+                </p>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-text">Six curiosity day assurance bed necessary?</span>
+                    <span class="summary-icon">+</span>
+                </summary>
+                <p>Sample answer text for this question.</p>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-text">Produce say the ten moments parties?</span>
+                    <span class="summary-icon">+</span>
+                </summary>
+                <p>Sample answer text for this question.</p>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-text">Simple innate summer fat appear basket his desire joy?</span>
+                    <span class="summary-icon">+</span>
+                </summary>
+                <p>Sample answer text for this question.</p>
+            </details>
+
+            <details>
+                <summary>
+                    <span class="summary-text">Outward clothes promise at gravity do excited?</span>
+                    <span class="summary-icon">+</span>
+                </summary>
+                <p>Sample answer text for this question.</p>
+            </details>
+
+        </div>
+    </section>
+
+    <aside class="contact-card">
+        <div>
+            <h2 class="contact-title">Do you have more questions?</h2>
+            <p class="contact-text">
+                End-to-end payments and financial management in a single solution.
+                Meet the right platform to help realize.
+            </p>
+        </div>
+
+        <button class="contact-button">Shoot a Direct Mail</button>
+    </aside>
+</main>
+
+<script>
+    document.querySelectorAll("details").forEach((el) => {
+        el.addEventListener("toggle", () => {
+            const icon = el.querySelector(".summary-icon");
+            if (!icon) return;
+            icon.textContent = el.open ? "−" : "+";
+        });
+    });
+</script>
+
 </body>
 </html>

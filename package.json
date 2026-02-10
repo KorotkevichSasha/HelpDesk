@@ -1,0 +1,28 @@
+{
+  "name": "helpdesk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KorotkevichSasha/HelpDesk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KorotkevichSasha/HelpDesk/issues"
+  },
+  "homepage": "https://github.com/KorotkevichSasha/HelpDesk#readme",
+  "dependencies": {
+    "lodash": "^4.17.23"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "nodemon": "^3.1.11"
+  },
+  "description": ""
+}
