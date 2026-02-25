@@ -2,87 +2,143 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>HelpDesk FAQ</title>
+    <title>HelpDesk — FAQ система</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Skip-link для доступности -->
+    <a href="#main" class="skip-link">Перейти к основному содержимому</a>
 
-<main class="container">
-    <section>
-        <h1 class="faq-header">HelpDesk</h1>
-
-        <div class="faq-list">
-
-            <details open>
-                <summary>
-                    <span class="summary-text">
-                        The expense windows adapted sir. Wrong widen drawn.
-                    </span>
-                    <span class="summary-icon">−</span>
-                </summary>
-                <p>
-                    Offending belonging promotion provision an be oh consulted ourselves it.
-                    Blessing welcomed ladyship she met humoured sir breeding her.
-                </p>
-            </details>
-
-            <details>
-                <summary>
-                    <span class="summary-text">Six curiosity day assurance bed necessary?</span>
-                    <span class="summary-icon">+</span>
-                </summary>
-                <p>Sample answer text for this question.</p>
-            </details>
-
-            <details>
-                <summary>
-                    <span class="summary-text">Produce say the ten moments parties?</span>
-                    <span class="summary-icon">+</span>
-                </summary>
-                <p>Sample answer text for this question.</p>
-            </details>
-
-            <details>
-                <summary>
-                    <span class="summary-text">Simple innate summer fat appear basket his desire joy?</span>
-                    <span class="summary-icon">+</span>
-                </summary>
-                <p>Sample answer text for this question.</p>
-            </details>
-
-            <details>
-                <summary>
-                    <span class="summary-text">Outward clothes promise at gravity do excited?</span>
-                    <span class="summary-icon">+</span>
-                </summary>
-                <p>Sample answer text for this question.</p>
-            </details>
-
+    <!-- Шапка сайта с навигацией -->
+    <header class="header" itemscope itemtype="https://schema.org/WPHeader">
+        <div class="header__container">
+            <a href="/" class="header__logo" aria-label="На главную">HelpDesk</a>
+            <nav class="header__nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Контакты</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">О проекте</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <aside class="contact-card">
-        <div>
-            <h2 class="contact-title">Do you have more questions?</h2>
-            <p class="contact-text">
+    <img src="images/image.png" alt="" class="spot spot--left" aria-hidden="true">
+    <img src="images/pyatno.png" alt="" class="spot spot--right" aria-hidden="true">
+
+    <main class="container" id="main">
+        <!-- Секция FAQ с микроразметкой FAQPage -->
+        <section class="faq" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+            <h1 class="faq__header">HelpDesk</h1>
+            <h2 class="faq__subheader">Часто задаваемые вопросы</h2>
+
+            <div class="faq__list">
+                <!-- Вопрос 1 -->
+                <details class="faq__item" open itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="faq__summary">
+                        <h3 class="faq__question" itemprop="name">The expense windows adapted sir. Wrong widen drawn.</h3>
+                        <span class="faq__icon">−</span>
+                    </summary>
+                    <div class="faq__answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Offending belonging promotion provision an be oh consulted ourselves it. Blessing welcomed ladyship she met humoured sir breeding her.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 2 -->
+                <details class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="faq__summary">
+                        <h3 class="faq__question" itemprop="name">Six curiosity day assurance bed necessary?</h3>
+                        <span class="faq__icon">+</span>
+                    </summary>
+                    <div class="faq__answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Sample answer text for this question. Six curiosity day assurance bed necessary? Here is the detailed explanation.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 3 -->
+                <details class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="faq__summary">
+                        <h3 class="faq__question" itemprop="name">Produce say the ten moments parties?</h3>
+                        <span class="faq__icon">+</span>
+                    </summary>
+                    <div class="faq__answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Sample answer text for this question. Produce say the ten moments parties? Explanation goes here.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 4 -->
+                <details class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="faq__summary">
+                        <h3 class="faq__question" itemprop="name">Simple innate summer fat appear basket his desire joy?</h3>
+                        <span class="faq__icon">+</span>
+                    </summary>
+                    <div class="faq__answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Sample answer text for this question. Explanation for Simple innate summer fat appear basket his desire joy.</p>
+                    </div>
+                </details>
+
+                <!-- Вопрос 5 -->
+                <details class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="faq__summary">
+                        <h3 class="faq__question" itemprop="name">Outward clothes promise at gravity do excited?</h3>
+                        <span class="faq__icon">+</span>
+                    </summary>
+                    <div class="faq__answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Sample answer text for this question. Explanation for Outward clothes promise at gravity do excited.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- Боковая панель (контактная карточка) с микроразметкой -->
+        <aside class="contact-card" id="contact" itemscope itemtype="https://schema.org/ContactPoint">
+            <img src="images/icons8.png" alt="Иконка комментария"  class="contact-card__image" itemprop="image">
+            
+            <h2 class="contact-card__title" itemprop="name">Do you have more questions?</h2>
+            
+            <p class="contact-card__text" itemprop="description">
                 End-to-end payments and financial management in a single solution.
                 Meet the right platform to help realize.
             </p>
+
+            <div class="contact-card__details" itemprop="contactOption" itemscope itemtype="https://schema.org/ContactPoint">
+                <meta itemprop="contactType" content="customer support">
+                <a href="tel:+3752951234567" class="contact-card__phone">375 (29) 123-45-67</a>
+                <a href="mailto:support@helpdesk.ru" class="contact-card__email">support@helpdesk.ru</a>
+            </div>
+
+            <button class="contact-card__button">Shoot a Direct Mail</button>
+        </aside>
+    </main>
+
+    <!-- Подвал сайта с микроразметкой Organization -->
+    <footer class="footer" itemscope itemtype="https://schema.org/Organization" id="about">
+        <div class="footer__container">
+            <div class="footer__info">
+                <span class="footer__name" itemprop="name">HelpDesk</span>
+                <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                    <span itemprop="streetAddress">ул. Программистов, д. 23</span>,
+                    <span itemprop="addressLocality">Минск</span>
+                </div>
+                <span itemprop="telephone">+375 (29) 123-45-67</span>
+                <a href="mailto:info@helpdesk.ru" itemprop="email">info@helpdesk.ru</a>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2026 HelpDesk. Все права защищены.</p>
+                <p><time datetime="2026-02-25">25 февраля 2026</time></p>
+            </div>
         </div>
+    </footer>
 
-        <button class="contact-button">Shoot a Direct Mail</button>
-    </aside>
-</main>
-
-<script>
-    document.querySelectorAll("details").forEach((el) => {
-        el.addEventListener("toggle", () => {
-            const icon = el.querySelector(".summary-icon");
-            if (!icon) return;
-            icon.textContent = el.open ? "−" : "+";
+    <!-- Скрипт для переключения иконок +/− -->
+    <script>
+        document.querySelectorAll(".faq__item").forEach((el) => {
+            el.addEventListener("toggle", () => {
+                const icon = el.querySelector(".faq__icon");
+                if (!icon) return;
+                icon.textContent = el.open ? "−" : "+";
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
