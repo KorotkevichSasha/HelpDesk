@@ -7,6 +7,10 @@
 </head>
 <body>
 
+    <!-- Пятна (убраны inline-стили) -->
+    <img src="images/image.png" alt="Spot" class="spot-left">
+    <img src="images/pyatno.png" alt="Spot" class="spot-right" style="width: 15%;">
+    
 <main class="container">
     <section>
         <h1 class="faq-header">HelpDesk</h1>
@@ -62,17 +66,19 @@
     </section>
 
     <aside class="contact-card">
-        <div>
-            <h2 class="contact-title">Do you have more questions?</h2>
-            <p class="contact-text">
-                End-to-end payments and financial management in a single solution.
-                Meet the right platform to help realize.
-            </p>
-        </div>
+        <img src="images/comment.png" alt="Comment" class="contact-image">
+        
+        <h2 class="contact-title">Do you have more questions?</h2>
+        
+        <p class="contact-text">
+            End-to-end payments and financial management in a single solution.
+            Meet the right platform to help realize.
+        </p>
 
         <button class="contact-button">Shoot a Direct Mail</button>
     </aside>
 </main>
+
 
 <script>
     document.querySelectorAll("details").forEach((el) => {
