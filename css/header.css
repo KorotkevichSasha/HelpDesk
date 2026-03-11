@@ -1,0 +1,113 @@
+/* Шапка сайта + навигация */
+.header {
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-4) 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.header__container {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 0 var(--layout-page-padding-x);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.header__logo {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.header__logo:hover {
+  color: var(--color-bg-accent);
+}
+
+.header__nav {
+  position: relative;
+}
+
+.nav__list {
+  display: flex;
+  gap: var(--space-6);
+  list-style: none;
+}
+
+.nav__item {
+  display: flex;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: var(--font-size-md);
+  transition: color 0.2s ease;
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  color: var(--color-bg-accent);
+}
+
+/* Бургер-меню (адаптив) */
+.header__burger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header__container {
+    padding: 0 var(--space-4);
+  }
+
+  .header__nav {
+    /* контейнер для focus-within бургер-меню */
+  }
+
+  /* Иконка бургера через псевдоэлемент на nav */
+  .header__nav::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text-main);
+    box-shadow: 0 6px 0 var(--color-text-main), 0 12px 0 var(--color-text-main);
+    cursor: pointer;
+  }
+
+  .nav__list {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-bg-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    min-width: 180px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  /* Выпадение списка по фокусу/ховеру навигации */
+  .header__nav:hover .nav__list,
+  .header__nav:focus-within .nav__list {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
