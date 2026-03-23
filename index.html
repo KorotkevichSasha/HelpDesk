@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HelpDesk — FAQ система</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -13,9 +14,15 @@
     <header class="header" itemscope itemtype="https://schema.org/WPHeader">
         <div class="header__container">
             <a href="/" class="header__logo" aria-label="На главную">HelpDesk</a>
+            <button class="header__burger" aria-label="Открыть меню" aria-expanded="false">
+                <span class="burger__line"></span>
+                <span class="burger__line"></span>
+                <span class="burger__line"></span>
+            </button>
             <nav class="header__nav" itemscope itemtype="https://schema.org/SiteNavigationElement">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
+                    <li class="nav__item"><a href="#ask-section" class="nav__link">Задать вопрос</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">Контакты</a></li>
                     <li class="nav__item"><a href="#about" class="nav__link">О проекте</a></li>
                 </ul>
@@ -31,6 +38,19 @@
         <section class="faq" id="faq" itemscope itemtype="https://schema.org/FAQPage">
             <h1 class="faq__header">HelpDesk</h1>
             <h2 class="faq__subheader">Часто задаваемые вопросы</h2>
+
+            <!-- Поиск по FAQ -->
+            <div class="faq__search-wrap">
+                <label for="faq-search" class="sr-only">Поиск по вопросам</label>
+                <input
+                    type="search"
+                    id="faq-search"
+                    class="faq__search"
+                    placeholder="Поиск по вопросам..."
+                    autocomplete="off"
+                    aria-label="Поиск по вопросам"
+                >
+            </div>
 
             <div class="faq__list">
                 <!-- Вопрос 1 -->
@@ -88,14 +108,56 @@
                     </div>
                 </details>
             </div>
+
+            <!-- Сообщение "ничего не найдено" -->
+            <p class="faq__no-results" style="display:none" role="status">По вашему запросу ничего не найдено.</p>
+
+            <!-- Форма отправки нового вопроса -->
+            <section class="ask-section" id="ask-section" aria-labelledby="ask-title">
+                <h2 class="ask-section__title" id="ask-title">Не нашли ответ?</h2>
+                <p class="ask-section__subtitle">Задайте свой вопрос — мы ответим в ближайшее время.</p>
+
+                <form class="question-form" id="question-form" novalidate>
+                    <div class="form__group">
+                        <label for="new-question" class="form__label">Ваш вопрос <span aria-hidden="true">*</span></label>
+                        <textarea
+                            id="new-question"
+                            name="question"
+                            class="form__textarea"
+                            rows="3"
+                            placeholder="Введите ваш вопрос..."
+                            maxlength="300"
+                            required
+                            aria-required="true"
+                            aria-describedby="question-counter"
+                        ></textarea>
+                        <span class="form__char-counter" id="question-counter" aria-live="polite">0/300</span>
+                    </div>
+
+                    <div class="form__group">
+                        <label for="question-email" class="form__label">Email <span aria-hidden="true">*</span></label>
+                        <input
+                            type="email"
+                            id="question-email"
+                            name="email"
+                            class="form__input"
+                            placeholder="your@email.com"
+                            required
+                            aria-required="true"
+                        >
+                    </div>
+
+                    <button type="submit" class="form__submit">Отправить вопрос</button>
+                </form>
+            </section>
         </section>
 
         <!-- Боковая панель (контактная карточка) с микроразметкой -->
         <aside class="contact-card" id="contact" itemscope itemtype="https://schema.org/ContactPoint">
-            <img src="images/icons8.png" alt="Иконка комментария"  class="contact-card__image" itemprop="image">
-            
+            <img src="images/icons8.png" alt="Иконка комментария" class="contact-card__image" itemprop="image">
+
             <h2 class="contact-card__title" itemprop="name">Do you have more questions?</h2>
-            
+
             <p class="contact-card__text" itemprop="description">
                 End-to-end payments and financial management in a single solution.
                 Meet the right platform to help realize.
@@ -130,15 +192,10 @@
         </div>
     </footer>
 
-    <!-- Скрипт для переключения иконок +/− -->
-    <script>
-        document.querySelectorAll(".faq__item").forEach((el) => {
-            el.addEventListener("toggle", () => {
-                const icon = el.querySelector(".faq__icon");
-                if (!icon) return;
-                icon.textContent = el.open ? "−" : "+";
-            });
-        });
-    </script>
+    <!-- Кнопка "Наверх" -->
+    <button class="scroll-top" aria-label="Прокрутить наверх" title="Наверх">↑</button>
+
+    <!-- Подключение основного скрипта как ES-модуля -->
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>

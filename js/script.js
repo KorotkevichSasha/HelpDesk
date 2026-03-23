@@ -1,80 +1,91 @@
-// Основной скрипт приложения
+/**
+ * HelpDesk — главный скрипт приложения
+ * Вариант 6: FAQ система
+ * Реализует: аккордеон, поиск по FAQ, форму отправки вопроса
+ */
 
-// Ждем полной загрузки DOM
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("Страница загружена!");
+import { initAccordion } from './components/accordion.js';
+import { initSearch } from './components/search.js';
+import { initQuestionForm } from './components/questionForm.js';
+import { getQuestions } from './utils/storage.js';
 
-  // Получаем элементы
-  const h1Element = document.querySelector("h1");
-  const pElement = document.querySelector("p");
+// Делаем getQuestions доступным для компонента формы (без бандлера)
+window.__helpdesk_getQuestions = getQuestions;
 
-  // Функция для обновления текста
-  function updateProjectName() {
-    // Можно заменить [Название проекта] на реальное название
-    if (h1Element.textContent.includes("[Название проекта]")) {
-      h1Element.textContent = "Добро пожаловать в HelpDesk!";
-    }
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('===================================');
+  console.log('HelpDesk FAQ System загружен');
+  console.log('Текущее время: ' + new Date().toLocaleTimeString());
+  console.log('===================================');
 
-  // Функция для добавления интерактивности
-  function addInteractivity() {
-    // Добавляем обработчик клика на заголовок
-    h1Element.addEventListener("click", function () {
-      this.style.color = this.style.color === "tomato" ? "#2c3e50" : "tomato";
-      console.log("Цвет заголовка изменен!");
+  // 1. Аккордеон
+  initAccordion('.faq__list');
+
+  // 2. Поиск по FAQ
+  initSearch('#faq-search', '.faq__list');
+
+  // 3. Форма нового вопроса
+  initQuestionForm('#question-form', '.faq__list');
+
+  // 4. Бургер-меню
+  initBurger();
+
+  // 5. Кнопка "Наверх"
+  initScrollTop();
+
+  // 6. Кнопка "Shoot a Direct Mail" — плавный скролл к форме
+  const mailBtn = document.querySelector('.contact-card__button');
+  if (mailBtn) {
+    mailBtn.addEventListener('click', () => {
+      document.querySelector('#ask-section')?.scrollIntoView({ behavior: 'smooth' });
+      console.log('Переход к форме вопроса');
     });
-
-    // Добавляем обработчик клика на параграф
-    pElement.addEventListener("click", function () {
-      const currentDate = new Date();
-      this.textContent = `Страница обновлена: ${currentDate.toLocaleString()}`;
-      setTimeout(() => {
-        this.textContent = "Это стартовая страница моего веб-приложения.";
-      }, 3000);
-    });
   }
 
-  // Функция для отображения приветствия в консоли
-  function showWelcomeMessage() {
-    console.log("===================================");
-    console.log("Добро пожаловать в HelpDesk System!");
-    console.log("Текущее время: " + new Date().toLocaleTimeString());
-    console.log("===================================");
+  if (typeof localStorage !== 'undefined') {
+    console.log('LocalStorage доступен');
+  } else {
+    console.warn('LocalStorage не поддерживается');
   }
-
-  // Инициализация приложения
-  function init() {
-    updateProjectName();
-    addInteractivity();
-    showWelcomeMessage();
-
-    // Добавляем простую проверку браузера
-    if (typeof localStorage !== "undefined") {
-      console.log("LocalStorage доступен");
-    } else {
-      console.warn("LocalStorage не поддерживается");
-    }
-  }
-
-  // Запуск приложения
-  init();
 });
 
-// Глобальная функция для примера
-function showAlert(message) {
-  alert(message || "Привет из HelpDesk!");
+/**
+ * Бургер-меню
+ */
+function initBurger() {
+  const burger = document.querySelector('.header__burger');
+  const nav = document.querySelector('.header__nav');
+  if (!burger || !nav) return;
+
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('nav--open');
+    burger.classList.toggle('burger--open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    console.log(`Меню ${open ? 'открыто' : 'закрыто'}`);
+  });
+
+  document.querySelectorAll('.nav__link').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav--open');
+      burger.classList.remove('burger--open');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
 }
 
-// Пример работы с данными
-const appConfig = {
-  name: "HelpDesk",
-  version: "1.0.0",
-  author: "Ваше имя",
+/**
+ * Кнопка прокрутки наверх
+ */
+function initScrollTop() {
+  const btn = document.querySelector('.scroll-top');
+  if (!btn) return;
 
-  getInfo: function () {
-    return `${this.name} v${this.version}`;
-  },
-};
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('scroll-top--visible', window.scrollY > 300);
+  });
 
-console.log("Информация о приложении:", appConfig.getInfo());
-``;
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    console.log('Прокрутка наверх');
+  });
+}
