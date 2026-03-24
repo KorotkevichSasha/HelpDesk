@@ -1,10 +1,11 @@
 # HelpDesk FAQ System
 
-Простая система вопросов-ответов для поддержки пользователей.
+Адаптивная страница часто задаваемых вопросов, построенная с применением современных CSS-технологий и методологии БЭМ.
 
 ## 🚀 Технологии
 
-- HTML5, CSS3, JavaScript
+- HTML5, CSS3 (Flexbox, Grid Layout, медиазапросы)
+- Методология БЭМ для организации CSS-кода
 - Git, GitHub
 - Figma (дизайн)
 - VS Code, Prettier
@@ -13,9 +14,14 @@
 
 HelpDesk/
 ├── index.html
-├── css/style.css
+├── css/
+│   ├── style.css       # основные стили
+│   ├── variables.css   # CSS-переменные (токены)
+│   ├── header.css      # стили шапки
+│   ├── main.css        # стили основного контента
+│   └── footer.css      # стили подвала
 ├── js/script.js
-├── design/ # файлы дизайна
+├── design/             # файлы дизайна
 └── README.md
 
 ## 🔗 Ссылки
