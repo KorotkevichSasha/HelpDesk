@@ -1,0 +1,336 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Header */
+.app__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.app__title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* CitySearch */
+.city-search { position: relative; }
+
+.city-search__row {
+  display: flex;
+  gap: 8px;
+}
+
+.city-search__input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  outline: none;
+  backdrop-filter: blur(4px);
+}
+
+.city-search__input::placeholder { color: rgba(255,255,255,0.6); }
+.city-search__input:focus { background: rgba(255,255,255,0.25); }
+.city-search__input:disabled { opacity: 0.6; }
+
+.city-search__btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.city-search__btn:hover:not(:disabled) { background: rgba(255,255,255,0.35); }
+.city-search__btn:disabled { opacity: 0.5; cursor: default; }
+
+.city-search__suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 48px;
+  background: #1e3a5f;
+  border-radius: 12px;
+  list-style: none;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.city-search__suggestion {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.city-search__suggestion:hover { background: rgba(255,255,255,0.1); }
+
+/* States */
+.app__loading {
+  text-align: center;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  padding: 40px;
+}
+
+.app__error {
+  background: rgba(239,68,68,0.2);
+  border: 1px solid rgba(239,68,68,0.5);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.app__placeholder {
+  text-align: center;
+  padding: 60px 20px;
+  opacity: 0.7;
+}
+
+.app__hint {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* WeatherCard */
+.weather-card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.weather-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.weather-card__city { font-size: 1.6rem; font-weight: 700; }
+.weather-card__time { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; text-transform: capitalize; }
+.weather-card__desc { font-size: 1rem; opacity: 0.85; margin-top: 4px; text-transform: capitalize; }
+
+.weather-card__temp {
+  font-size: 4rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.weather-card__details {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.weather-card__detail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.weather-card__detail-val { font-weight: 600; margin-left: 4px; }
+
+/* Temperature */
+.temperature { font-weight: 700; }
+.temperature__unit { font-size: 0.6em; opacity: 0.8; margin-left: 1px; }
+.forecast__temp-max { color: #fbbf24; }
+.forecast__temp-min { color: #93c5fd; font-size: 0.9em; }
+
+/* ForecastList */
+.forecast {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px 24px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.forecast__title {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.forecast__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.forecast__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.forecast__item:last-child { border-bottom: none; }
+
+.forecast__day {
+  width: 36px;
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 0.95rem;
+}
+
+.forecast__desc {
+  flex: 1;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-transform: capitalize;
+}
+
+.forecast__temps {
+  display: flex;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+  .weather-card__temp { font-size: 3rem; }
+  .weather-card__details { gap: 8px; }
+  .weather-card__detail { padding: 6px 10px; font-size: 0.82rem; }
+}
+
+/* ===== Анимации ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Появление результатов */
+.app__results {
+  animation: fadeInUp 0.7s ease both;
+}
+
+/* Спиннер загрузки */
+.app__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px;
+  font-size: 1.1rem;
+  animation: pulse 1.2s ease infinite;
+}
+
+.app__spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Иконка плейсхолдера */
+.app__placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Геолокация */
+.app__geo-status {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  text-align: center;
+  animation: pulse 1.5s ease infinite;
+}
+
+.app__geo-status--denied {
+  animation: none;
+  opacity: 0.6;
+}
+
+/* Анимация карточки погоды при появлении */
+.weather-card {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.forecast {
+  animation: fadeInUp 0.8s ease 0.1s both;
+}
+
+/* Производительность: GPU-ускорение для анимированных элементов */
+.app__results,
+.weather-card,
+.forecast,
+.app__placeholder-icon {
+  will-change: transform, opacity;
+}
+
+/* Кнопка геолокации */
+.app__geo-btn {
+  display: block;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.app__geo-btn:hover { background: rgba(255,255,255,0.25); }
+
+.app__geo-retry {
+  background: none;
+  border: none;
+  color: #93c5fd;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+  padding: 0;
+}
