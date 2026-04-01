@@ -7,24 +7,28 @@
 import { initAccordion } from './components/accordion.js';
 import { initSearch } from './components/search.js';
 import { initQuestionForm } from './components/questionForm.js';
+import { initFaqLoader } from './components/faqLoader.js';
 import { getQuestions } from './utils/storage.js';
 
 // Делаем getQuestions доступным для компонента формы (без бандлера)
 window.__helpdesk_getQuestions = getQuestions;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('===================================');
   console.log('HelpDesk FAQ System загружен');
   console.log('Текущее время: ' + new Date().toLocaleTimeString());
   console.log('===================================');
 
-  // 1. Аккордеон
+  // 1. Загрузка FAQ с сервера / кэша
+  await initFaqLoader('.faq__list');
+
+  // 2. Аккордеон
   initAccordion('.faq__list');
 
-  // 2. Поиск по FAQ
+  // 3. Поиск по FAQ (с оффлайн-поддержкой)
   initSearch('#faq-search', '.faq__list');
 
-  // 3. Форма нового вопроса
+  // 4. Форма нового вопроса
   initQuestionForm('#question-form', '.faq__list');
 
   // 4. Бургер-меню

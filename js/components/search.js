@@ -1,6 +1,10 @@
 /**
  * Компонент поиска по FAQ
+ * Поддерживает оффлайн-поиск по кэшированным данным
  */
+
+import { searchCachedFaqs } from '../utils/faqApi.js';
+import { renderFaqItem } from './faqLoader.js';
 
 /**
  * Инициализация поиска
@@ -15,8 +19,14 @@ export function initSearch(inputSelector, listSelector) {
   const noResults = document.querySelector('.faq__no-results');
 
   input.addEventListener('input', (e) => {
-    const query = e.target.value.trim().toLowerCase();
-    filterFaq(query, list, noResults);
+    const query = e.target.value.trim();
+    if (navigator.onLine) {
+      // Онлайн: фильтруем DOM
+      filterFaq(query.toLowerCase(), list, noResults);
+    } else {
+      // Оффлайн: поиск по кэшу с перерисовкой
+      offlineSearch(query, list, noResults);
+    }
   });
 
   // Очистка поиска по Escape
@@ -28,7 +38,51 @@ export function initSearch(inputSelector, listSelector) {
     }
   });
 
+  // Индикатор оффлайн-режима
+  window.addEventListener('offline', () => showOfflineBanner(true));
+  window.addEventListener('online', () => showOfflineBanner(false));
+  if (!navigator.onLine) showOfflineBanner(true);
+
   console.log('Поиск по FAQ инициализирован');
+}
+
+/**
+ * Оффлайн-поиск: перерисовывает список из кэша
+ * @param {string} query
+ * @param {HTMLElement} list
+ * @param {HTMLElement|null} noResults
+ */
+function offlineSearch(query, list, noResults) {
+  const results = searchCachedFaqs(query);
+
+  // Убираем только серверные FAQ (не пользовательские)
+  list.querySelectorAll('.faq__item:not(.faq__item--user)').forEach((el) => el.remove());
+  results.forEach((faq) => renderFaqItem(faq, list));
+
+  const userItems = list.querySelectorAll('.faq__item--user').length;
+  const total = results.length + userItems;
+
+  if (noResults) noResults.style.display = total === 0 ? 'block' : 'none';
+  console.log(`[Offline Search] "${query}" — найдено ${results.length} результатов`);
+}
+
+/**
+ * Показать/скрыть баннер оффлайн-режима
+ * @param {boolean} offline
+ */
+function showOfflineBanner(offline) {
+  let banner = document.querySelector('.faq__offline-banner');
+  if (offline) {
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.className = 'faq__offline-banner';
+      banner.setAttribute('role', 'alert');
+      banner.textContent = '📡 Нет подключения — поиск работает по кэшу';
+      document.querySelector('.faq__search-wrap')?.insertAdjacentElement('afterend', banner);
+    }
+  } else {
+    banner?.remove();
+  }
 }
 
 /**
