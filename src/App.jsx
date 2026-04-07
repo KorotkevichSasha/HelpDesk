@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CitySearch from './components/CitySearch.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
 import ForecastList from './components/ForecastList.jsx';
-import { fetchWeather } from './api/weather.js';
+import { fetchWeather, fetchWeatherByCoords } from './api/weather.js';
 
 export default function App() {
   const [weather, setWeather] = useState(null);
@@ -10,15 +10,28 @@ export default function App() {
   const [error, setError] = useState('');
   const [geoStatus, setGeoStatus] = useState(''); // 'loading' | 'denied' | ''
 
+  async function handleGeoSuccess(position) {
+    setGeoStatus('');
+    const { latitude, longitude } = position.coords;
+    setLoading(true);
+    setError('');
+    try {
+      const data = await fetchWeatherByCoords(latitude, longitude);
+      setWeather(data);
+    } catch (e) {
+      setError(e.message);
+      setWeather(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // Геолокация при первом запуске
   useEffect(() => {
     if (!navigator.geolocation) return;
     setGeoStatus('loading');
     navigator.geolocation.getCurrentPosition(
-      async () => {
-        setGeoStatus('');
-        await handleSearch('Минск');
-      },
+      handleGeoSuccess,
       () => setGeoStatus('denied')
     );
   }, []);
@@ -27,10 +40,7 @@ export default function App() {
     if (!navigator.geolocation) return;
     setGeoStatus('loading');
     navigator.geolocation.getCurrentPosition(
-      async () => {
-        setGeoStatus('');
-        await handleSearch('Минск');
-      },
+      handleGeoSuccess,
       () => setGeoStatus('denied')
     );
   }
