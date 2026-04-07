@@ -11,9 +11,9 @@ import { getFaqCache, setFaqCache } from './faqCache.js';
 const CONFIG = {
   // Custom JSON API (JSONBin.io — бесплатный хостинг JSON)
   jsonApi: {
-    url: 'https://api.jsonbin.io/v3/b/6848a1b08960c979a59e5e3e',
+    url: 'https://api.jsonbin.io/v3/b/69d5627536566621a88b13d9',
     headers: {
-      'X-Master-Key': '$2a$10$placeholder_replace_with_real_key',
+      'X-Master-Key': '$2a$10$KbJqie4CtkXUB9S0MXJ/Ze4a5mVC08sEIN7tzhGR3FiM29z9yw5S6',
     },
   },
 
@@ -28,7 +28,7 @@ const CONFIG = {
   },
 
   // Источник по умолчанию: 'json' | 'airtable' | 'local'
-  source: 'local',
+  source: 'json',
 };
 
 // ─── Локальные данные (fallback) ─────────────────────────────────────────────
