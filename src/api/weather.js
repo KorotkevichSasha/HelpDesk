@@ -3,7 +3,7 @@
  * Получи бесплатный ключ на https://openweathermap.org/api
  * и замени значение API_KEY
  */
-const API_KEY = 'demo'; // замените на реальный ключ
+const API_KEY = '6c4e00b158fd99c014b628bf451a09d1';
 const BASE = 'https://api.openweathermap.org/data/2.5';
 
 // Моковые данные для демонстрации без API-ключа
