@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CitySearch from '../components/CitySearch.jsx';
 
-// мокаем renderApp чтобы не трогать реальный DOM
 vi.mock('../main.jsx', () => ({ renderApp: vi.fn() }));
 import { renderApp } from '../main.jsx';
 
@@ -28,8 +27,7 @@ describe('CitySearch', () => {
 
   it('активный город имеет класс --active', () => {
     render(<CitySearch cities={cities} selected="Москва" />);
-    const btn = screen.getByText('Москва');
-    expect(btn.className).toContain('city-search__city-btn--active');
+    expect(screen.getByText('Москва').className).toContain('city-search__city-btn--active');
   });
 
   it('вызывает renderApp при клике на город', () => {
@@ -44,5 +42,10 @@ describe('CitySearch', () => {
     fireEvent.change(input, { target: { value: 'Лондон' } });
     fireEvent.keyDown(input, { key: 'Enter' });
     expect(renderApp).toHaveBeenCalledWith('Лондон');
+  });
+
+  it('рендерит подсказки через datalist', () => {
+    render(<CitySearch cities={cities} selected="Минск" />);
+    expect(document.getElementById('city-suggestions')).toBeInTheDocument();
   });
 });

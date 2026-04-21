@@ -3,8 +3,8 @@ import { renderApp } from '../main.jsx';
 const SUGGESTIONS = ['Минск', 'Москва', 'Лондон', 'Берлин', 'Париж', 'Токио', 'Нью-Йорк'];
 
 /**
- * CitySearch — поиск города с подсказками
- * Без useState/useEffect — переключение через renderApp
+ * CitySearch — поиск города с подсказками (datalist)
+ * Без useState/useEffect
  */
 export default function CitySearch({ cities = [], selected = '' }) {
   function handleKeyDown(e) {
@@ -29,7 +29,11 @@ export default function CitySearch({ cities = [], selected = '' }) {
           placeholder="Введите город..."
           onKeyDown={handleKeyDown}
           aria-label="Поиск города"
+          list="city-suggestions"
         />
+        <datalist id="city-suggestions">
+          {SUGGESTIONS.map((s) => <option key={s} value={s} />)}
+        </datalist>
         <button
           className="city-search__btn"
           onClick={handleSearch}

@@ -49,20 +49,55 @@ const CITIES = {
 
 export { CITIES };
 
-export default function App({ selectedCity = 'Минск' }) {
+export default function App({ selectedCity = 'Минск', unit = 'C', geoStatus = '' }) {
   const data = CITIES[selectedCity] || CITIES['Минск'];
+
   return (
     <div className="app">
       <header className="app__header">
         <h1 className="app__title">🌤 WeatherApp</h1>
         <CitySearch cities={Object.keys(CITIES)} selected={selectedCity} />
+        <div className="app__controls">
+          <button
+            className={`app__unit-btn${unit === 'C' ? ' app__unit-btn--active' : ''}`}
+            onClick={() => renderAppFull(selectedCity, 'C', geoStatus)}
+          >°C</button>
+          <button
+            className={`app__unit-btn${unit === 'F' ? ' app__unit-btn--active' : ''}`}
+            onClick={() => renderAppFull(selectedCity, 'F', geoStatus)}
+          >°F</button>
+          <button className="app__geo-btn" onClick={handleGeo}>📍 Геолокация</button>
+        </div>
+        {geoStatus === 'loading' && (
+          <p className="app__geo-status">📍 Определяем местоположение...</p>
+        )}
+        {geoStatus === 'denied' && (
+          <p className="app__geo-status app__geo-status--denied">
+            📍 Геолокация недоступна
+          </p>
+        )}
       </header>
+
       <main className="app__main">
-        <div className="app__results">
-          <WeatherCard data={data.current} />
-          <ForecastList forecast={data.forecast} />
+        <div className="app__results" key={selectedCity + unit}>
+          <WeatherCard data={data.current} unit={unit} />
+          <ForecastList forecast={data.forecast} unit={unit} />
         </div>
       </main>
     </div>
   );
+}
+
+function handleGeo() {
+  if (!navigator.geolocation) return;
+  renderAppFull('Минск', 'C', 'loading');
+  navigator.geolocation.getCurrentPosition(
+    () => renderAppFull('Минск', 'C', ''),
+    () => renderAppFull('Минск', 'C', 'denied')
+  );
+}
+
+// импортируем renderApp из main через глобальную переменную
+function renderAppFull(city, unit, geoStatus) {
+  window.__renderApp(city, unit, geoStatus);
 }

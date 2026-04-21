@@ -4,8 +4,12 @@ import App from './App.jsx';
 
 const root = createRoot(document.getElementById('root'));
 
+window.__renderApp = function(city = 'Минск', unit = 'C', geoStatus = '') {
+  root.render(<App selectedCity={city} unit={unit} geoStatus={geoStatus} />);
+};
+
 export function renderApp(city) {
-  root.render(<App selectedCity={city} />);
+  window.__renderApp(city, 'C', '');
 }
 
-renderApp('Минск');
+window.__renderApp('Минск', 'C', '');
