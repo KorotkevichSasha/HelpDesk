@@ -325,6 +325,32 @@ body {
 
 .app__geo-btn:hover { background: rgba(255,255,255,0.25); }
 
+/* Контролы: переключатель единиц + геолокация */
+.app__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.app__unit-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.app__unit-btn:hover { background: rgba(255,255,255,0.25); }
+.app__unit-btn--active {
+  background: rgba(255,255,255,0.35);
+  font-weight: 700;
+  border-color: rgba(255,255,255,0.7);
+}
+
 .app__geo-retry {
   background: none;
   border: none;

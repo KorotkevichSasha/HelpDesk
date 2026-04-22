@@ -3,7 +3,7 @@
  * Получи бесплатный ключ на https://openweathermap.org/api
  * и замени значение API_KEY
  */
-const API_KEY = 'demo'; // замените на реальный ключ
+const API_KEY = '6c4e00b158fd99c014b628bf451a09d1';
 const BASE = 'https://api.openweathermap.org/data/2.5';
 
 // Моковые данные для демонстрации без API-ключа
@@ -72,7 +72,12 @@ export async function fetchWeather(city) {
     fetch(`${BASE}/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric&lang=ru&cnt=40`),
   ]);
 
-  if (!curRes.ok) throw new Error(`Город "${city}" не найден`);
+  if (!curRes.ok) {
+    // Fallback на мок пока ключ не активировался
+    const key = Object.keys(MOCK).find((k) => k.toLowerCase() === city.toLowerCase());
+    if (key) return MOCK[key];
+    throw new Error(`Город "${city}" не найден`);
+  }
 
   const cur = await curRes.json();
   const fore = await foreRes.json();
@@ -89,6 +94,55 @@ export async function fetchWeather(city) {
   };
 
   // Берём по одному слоту на день (полдень)
+  const days = {};
+  fore.list.forEach((item) => {
+    const d = new Date(item.dt * 1000);
+    const key = d.toLocaleDateString('ru', { weekday: 'short' });
+    if (!days[key]) {
+      days[key] = {
+        date: key,
+        temp_min: Math.round(item.main.temp_min),
+        temp_max: Math.round(item.main.temp_max),
+        icon: item.weather[0].icon,
+        description: item.weather[0].description,
+      };
+    } else {
+      days[key].temp_min = Math.min(days[key].temp_min, Math.round(item.main.temp_min));
+      days[key].temp_max = Math.max(days[key].temp_max, Math.round(item.main.temp_max));
+    }
+  });
+
+  return { current, forecast: Object.values(days).slice(0, 5) };
+}
+
+/**
+ * Получить погоду по координатам геолокации
+ * @param {number} lat
+ * @param {number} lon
+ * @returns {Promise<{current, forecast}>}
+ */
+export async function fetchWeatherByCoords(lat, lon) {
+  const [curRes, foreRes] = await Promise.all([
+    fetch(`${BASE}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=ru`),
+    fetch(`${BASE}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=ru&cnt=40`),
+  ]);
+
+  if (!curRes.ok) throw new Error('Не удалось получить погоду по геолокации');
+
+  const cur = await curRes.json();
+  const fore = await foreRes.json();
+
+  const current = {
+    city: cur.name, country: cur.sys.country,
+    temp: Math.round(cur.main.temp),
+    feels_like: Math.round(cur.main.feels_like),
+    humidity: cur.main.humidity,
+    wind: cur.wind.speed,
+    description: cur.weather[0].description,
+    icon: cur.weather[0].icon,
+    dt: cur.dt * 1000,
+  };
+
   const days = {};
   fore.list.forEach((item) => {
     const d = new Date(item.dt * 1000);

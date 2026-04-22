@@ -1,0 +1,19 @@
+Запуск тестов — WeatherApp
+==========================
+
+1. Запустить все тесты один раз:
+   npm test
+
+2. Запустить тесты с отчётом покрытия (coverage):
+   npx vitest run --coverage
+
+3. Запустить тесты в режиме наблюдения (пересчитывает при изменениях):
+   npm run test:watch
+
+4. Запустить конкретный файл теста:
+   npx vitest run src/tests/WeatherCard.test.jsx
+   npx vitest run src/tests/CitySearch.test.jsx
+   npx vitest run src/tests/ForecastList.test.jsx
+   npx vitest run src/tests/weather.utils.test.js
+
+Все команды выполнять из папки WeatherApp.
